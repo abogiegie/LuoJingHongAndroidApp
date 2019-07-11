@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 String temp = editText.getText().toString();
                 if(!temp.equals(res.getString(R.string.edit_blank))){
                     textView.setText(temp);
+                    Log.d(TAG, "sendText: " + temp);
                 }
             }
         });
@@ -84,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast toast = Toast.makeText(MainActivity.this, "启动夜间模式", Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
+                    Log.d(TAG, "Night");
                 }
                 else{
                     constraintLayout.setBackgroundColor(backgroundColor);
@@ -95,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast toast = Toast.makeText(MainActivity.this, "启动白天模式", Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
+                    Log.d(TAG, "Default");
                 }
             }
         });
@@ -103,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 float temp = (float)progress/(float)seekBar.getMax();
+                Log.d(TAG, "textSize: " + (temp * textSize));
                 textView.setTextSize(temp * textSize);
             }
 
