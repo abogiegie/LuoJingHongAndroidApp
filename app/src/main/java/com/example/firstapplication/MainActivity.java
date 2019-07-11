@@ -6,25 +6,33 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
+import android.nfc.Tag;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "MainActivity";
+
     private Button button;
     private TextView textView;
     private EditText editText;
     private Switch switchPart;
+    private SeekBar seekBar;
     private ConstraintLayout constraintLayout;
     private Resources res;
 
@@ -38,12 +46,14 @@ public class MainActivity extends AppCompatActivity {
         textView = findViewById(R.id.textView);
         editText = findViewById(R.id.editText);
         switchPart = findViewById(R.id.switchPart);
+        seekBar = findViewById(R.id.seekBar);
         constraintLayout = findViewById(R.id.background);
 
         //button
         final ColorStateList buttonTextColor = button.getTextColors();
         //textView
         final ColorStateList textViewColor = textView.getTextColors();
+        final float textSize = textView.getTextSize();
         //editText
         final ColorStateList editTextColor = editText.getTextColors();
         //switch
@@ -55,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String temp = editText.getText().toString();
-                if(!(temp == res.getString(R.string.edit_blank) || temp == "")){
+                if(!temp.equals(res.getString(R.string.edit_blank))){
                     textView.setText(temp);
                 }
             }
@@ -88,5 +98,24 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                float temp = (float)progress/(float)seekBar.getMax();
+                textView.setTextSize(temp * textSize);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
     }
 }
